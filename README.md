@@ -1,73 +1,129 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Ânima Back End (Node.js)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Aplicação Back-end voltada para a promoção e venda de produtos da banda pernambucana Ânima. O Front-end está em desenvolvimento. Essa mesma aplicação está disponível nas seguintes tecnologias:
+- Node.js: https://github.com/kassioba/anima-back-end-node
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias utilizadas
 
-## Description
+- TypeScript
+- NestJS
+- PostgreSQL
+- Prisma
+- Jest
+- API PagBank
+- API Melhor Envio
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<!-- ## Setup
 
-## Installation
+- Arquivo .env.example presente na raiz do projeto com todos os campos necessários para conectar ao banco de dados, escolher a porta da aplicação e adicionar os tokens das API's do PagBank e Melhor Envio;
+- Idealmente, crie um arquivo .env.development, voltado para as variáveis de desenvolvimento, e um arquivo .env.test, voltado para as variáveis de teste. Caso só um arquivo .env seja criado, a aplicação funcionará perfeitamente, com o detalhe de que as variáveis de ambiente serão as mesmas para desenvolvimento e para testes;
+- Utilize o comando "npm i" ou "npm install" para instalar as dependências do projeto;
+- Utilize o comando "npm run dev:migration:generate" para gerar as migrações do Prisma e aplicá-las no banco de dados;
+- Utilize o comando "npm run dev" para iniciar a aplicação. -->
 
-```bash
-$ npm install
-```
+<!-- ## Testes
 
-## Running the app
+- Para testar a aplicação, utilize o comando "npm run test";
+- Caso queria testar uma funcionalidade específica, utilize o comando "npm run test" seguido do nome da funcionalidade (cada arquivo de testes testa todas as rotas da respectiva funcionalidade);
+- Perceba que é de suma importância preencher o arquivo .env ou, idealmente, o arquivo .env.test corretamente para que os teste funcionem conforme o esperado. -->
 
-```bash
-# development
-$ npm run start
+## Rotas
 
-# watch mode
-$ npm run start:dev
+- GET /products
+    - Response: [ { "id": number,
+    "name": string,
+    "price": number,
+    "image": string,
+    "image_alt": string,
+    "description": string,
+    "createdAt": Date,
+    "updatedAt": Date 
+    } ]
 
-# production mode
-$ npm run start:prod
-```
+    - Status: 200 (OK)
 
-## Test
+- GET /products/:id
+    - Param: { id: number }
 
-```bash
-# unit tests
-$ npm run test
+    - Response: { "id": number,
+    "name": string,
+    "price": number,
+    "image": string,
+    "image_alt": string,
+    "description": string,
+    "createdAt": Date,
+    "updatedAt": Date 
+    }
 
-# e2e tests
-$ npm run test:e2e
+    - Status: 200 (OK)
 
-# test coverage
-$ npm run test:cov
-```
+- GET /stock/:product_id
+    - Param: { product_id: number }
 
-## Support
+    - Response: [ {
+    "id": number,
+    "product_id": number,
+    "size": string,
+    "quantity": number,
+    "createdAt": Date,
+    "updatedAt": Date
+  } ]
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  - Status: 200 (OK)
 
-## Stay in touch
+- POST /shipping
+    - Body: { cep: string }
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    - Response: Como na documentação da API do Melhor Envio: https://docs.melhorenvio.com.br/reference/calculo-de-fretes-por-produtos
 
-## License
+    - Status: 200 (OK)
 
-Nest is [MIT licensed](LICENSE).
+- POST /payment
+    - Body: {
+        cart: [ {
+            stock_id: number,
+            name: string,
+            unit_amount: number,
+            quantity: number
+        } ],  
+        customer: {
+            name: string,
+            email: string,
+            tax_id: string
+        },  
+        address: {
+            street: string,
+            number: string,
+            complement: string,
+            locality: string,
+            city: string,
+            region_code: string,
+            country: string,
+            postal_code: string
+        },  
+        card: {
+            number: string,
+            exp_month: number,
+            exp_year: number,
+            security_code: string,
+            holder: {
+                name: string
+            }
+        },  
+        shipping?: {
+            name: string,
+            unit_amount: number
+        }
+    }
+
+    - Response: Como na documentação da API do PagBank: https://dev.pagbank.uol.com.br/reference/criar-pedido
+
+    - Status: 201 (Created)
+
+## Funcionalidades futuras
+
+- Implementar sistema de cadastro e login;
+- Criar sistema de acompanhamento dos pedidos para o vendedor (outra aplicação, parecida com a do repositório: https://github.com/kassioba/Shopper-Teste-Front);
+- Criptografia do cartão usado para o pagamento na rota /payment;
+- Testes unitários;
+- Proxy reverso para reforçar a segurança da aplicação em produção.
