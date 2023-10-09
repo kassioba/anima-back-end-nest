@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product{
+  id          Int     @id @default(autoincrement())
+  name        String
+  price       Int
+  image       String
+  image_alt   String
+  description String
+  Stock       Stock[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Stock{
+  id          Int      @id @default(autoincrement())
+  product_id  Int
+  Product     Product  @relation(fields: [product_id], references: [id])
+  size        Size
+  quantity    Int
+  Order       Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Size{
+  P
+  M
+  G
+  GG
+  XG
+  NA
+}
+
+model Customer{
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  cpf         String
+  Order       Order[]
+  Address     Address?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order{
+  id            Int      @id @default(autoincrement())
+  customer_id   Int
+  Customer      Customer @relation(fields: [customer_id], references: [id])
+  stock_id      Int
+  Stock         Stock    @relation(fields: [stock_id], references: [id])
+  quantity      Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+	@@map("CustomerOrder")
+}
+
+model Address{
+  id            Int      @id @default(autoincrement())
+  customer_id   Int      @unique
+  customer      Customer @relation(fields: [customer_id], references: [id])
+  street        String
+  number        String
+  complement    String
+  neighborhood  String
+  city          String
+  state_code    String
+  postal_code   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
