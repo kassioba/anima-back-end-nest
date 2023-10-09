@@ -1,4 +1,4 @@
-# Ânima Back End (Node.js)
+# Ânima Back End (NestJS)
 
 Aplicação Back-end voltada para a promoção e venda de produtos da banda pernambucana Ânima. O Front-end está em desenvolvimento. Essa mesma aplicação está disponível nas seguintes tecnologias:
 - Node.js: https://github.com/kassioba/anima-back-end-node
