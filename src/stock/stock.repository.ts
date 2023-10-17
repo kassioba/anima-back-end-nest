@@ -10,4 +10,27 @@ export class StockRepository{
             where: { product_id }
         })
     }
+    
+    findStockById(id: number) {
+        return this.prisma.stock.findUnique({
+            where: { id }
+        })
+    }
+    
+    findStocksById(ids: number[]) {
+        return this.prisma.stock.findMany({
+            where: { id: { in: ids } },
+            select: {
+                id: true,
+                quantity: true
+            }
+        })
+    }
+    
+    updateStockQuantity(id: number, quantity: number) {
+        return this.prisma.stock.update({
+            where: { id },
+            data: { quantity }
+        })
+    }
 }

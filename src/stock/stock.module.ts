@@ -6,5 +6,6 @@ import { StockRepository } from './stock.repository';
 @Module({
   controllers: [StockController],
   providers: [StockService, StockRepository],
+  exports: [StockService]
 })
 export class StockModule {}

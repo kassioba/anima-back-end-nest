@@ -12,4 +12,19 @@ export class AddressRepository{
         .then(res => { return res })
         .catch(err => { return err })
     }
+
+    createAddress(customer_id: number, { street, number, complement, locality , city, region_code, postal_code }){
+        return this.prisma.address.create({
+          data: {
+            customer_id,
+            street,
+            number,
+            complement,
+            neighborhood: locality,
+            city,
+            postal_code,
+            state_code: region_code
+          }
+        })
+    }
 }
